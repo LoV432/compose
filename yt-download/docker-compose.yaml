@@ -1,0 +1,31 @@
+
+services:
+  metube:
+    image: ghcr.io/alexta69/metube
+    container_name: metube
+    restart: unless-stopped
+    #ports:
+    #  - "8081:8081"
+    volumes:
+      - /mnt/dockers_mount/dockers_data/yt-download/downloads:/downloads
+      - /mnt/dockers_mount/dockers_data/yt-download/cookies:/cookies
+    networks:
+      traefik_proxy:
+    environment:
+      - "DELETE_FILE_ON_TRASHCAN=true"
+      - YTDL_OPTIONS={"cookiefile":"/cookies/cookies.txt","trim_file_name":50}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)"
+      - "traefik.http.routers.${SERVICE}.entrypoints=websecure,websecure-public"
+      - "traefik.http.routers.${SERVICE}.tls.certresolver=production"
+      - "traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz"
+      - "traefik.http.routers.${SERVICE}.middlewares=download-public-headers"
+      - "traefik.http.middlewares.download-headers.headers.customresponseheaders.Cache-Control=no-cache,no-store,must-revalidate"
+      - "traefik.http.routers.${SERVICE}.middlewares=authelia@docker,download-headers"
+      - "traefik.docker.network=traefik_proxy"
+
+networks:
+  traefik_proxy:
+    external: true
+

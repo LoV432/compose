@@ -1,0 +1,54 @@
+services:
+  authelia:
+    image: authelia/authelia
+    container_name: authelia
+    volumes:
+      - /mnt/dockers_mount/dockers_data/authelia/config:/config
+    networks:
+      traefik_proxy:
+      authelia-network:
+    security_opt:
+      - no-new-privileges:true
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
+      - 'traefik.http.routers.${SERVICE}.entrypoints=websecure,websecure-public'
+      - "traefik.http.routers.${SERVICE}.tls.certresolver=production"
+      - "traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz"
+      - 'traefik.http.services.${SERVICE}.loadbalancer.server.port=9091'
+      - 'traefik.docker.network=traefik_proxy'
+      - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://${HOST}'
+      - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
+      - 'traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
+    # ports:
+    #   - 9091:9091
+    user: 1000:1000
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Karachi
+    # healthcheck:
+    #   disable: true
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    volumes:
+      - /mnt/dockers_mount/dockers_data/authelia/redis:/data
+    networks:
+      authelia-network:
+    # expose:
+    #   - 6379
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Karachi
+
+
+networks:
+  authelia-network:
+    name: authelia-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.40.0/28
+  traefik_proxy:
+    external: true

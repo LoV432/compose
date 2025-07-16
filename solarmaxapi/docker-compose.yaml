@@ -11,5 +11,5 @@ services:
       - MEMBERAUTOID=${MEMBERAUTOID}
       - TIMEZONE=${TIMEZONE}
       - DISCORD_WEBHOOK=${DISCORD_WEBHOOK}
-    dns: 
+    dns:
       - 1.1.1.1

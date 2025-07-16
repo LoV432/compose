@@ -16,13 +16,13 @@ services:
       - /mnt/media:/media
       - /mnt/dockers_mount/dockers_backup/arr/sonarr:/Backups
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${SONARR_SERVICE}.rule=Host(`${SONARR_HOST}`)"
-      - "traefik.http.routers.${SONARR_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${SONARR_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${SONARR_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.routers.${SONARR_SERVICE}.middlewares=authelia@docker"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SONARR_SERVICE}.rule=Host(`${SONARR_HOST}`)'
+      - 'traefik.http.routers.${SONARR_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${SONARR_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${SONARR_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${SONARR_SERVICE}.middlewares=authelia@docker'
+      - 'traefik.docker.network=traefik_proxy'
     restart: unless-stopped
 
   radarr:
@@ -42,13 +42,13 @@ services:
       - /mnt/media:/media
       - /mnt/dockers_mount/dockers_backup/arr/radarr:/Backups
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${RADARR_SERVICE}.rule=Host(`${RADARR_HOST}`)"
-      - "traefik.http.routers.${RADARR_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${RADARR_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${RADARR_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.routers.${RADARR_SERVICE}.middlewares=authelia@docker"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${RADARR_SERVICE}.rule=Host(`${RADARR_HOST}`)'
+      - 'traefik.http.routers.${RADARR_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${RADARR_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${RADARR_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${RADARR_SERVICE}.middlewares=authelia@docker'
+      - 'traefik.docker.network=traefik_proxy'
     restart: unless-stopped
 
   # flaresolverr:
@@ -75,13 +75,13 @@ services:
       - /mnt/dockers_mount/dockers_data/arr/config/prowlarr/data:/config
       - /mnt/dockers_mount/dockers_backup/arr/prowlarr:/Backups
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${PROWLARR_SERVICE}.rule=Host(`${PROWLARR_HOST}`)"
-      - "traefik.http.routers.${PROWLARR_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${PROWLARR_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${PROWLARR_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.routers.${PROWLARR_SERVICE}.middlewares=authelia@docker"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${PROWLARR_SERVICE}.rule=Host(`${PROWLARR_HOST}`)'
+      - 'traefik.http.routers.${PROWLARR_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${PROWLARR_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${PROWLARR_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${PROWLARR_SERVICE}.middlewares=authelia@docker'
+      - 'traefik.docker.network=traefik_proxy'
     networks:
       traefik_proxy:
       err-apps:
@@ -120,7 +120,7 @@ services:
   #   restart: unless-stopped
 
   qbit:
-    image: "11notes/qbittorrent:5.1.2"
+    image: '11notes/qbittorrent:5.1.2'
     container_name: qbit
     read_only: true
     networks:
@@ -132,20 +132,19 @@ services:
       - /mnt/dockers_mount/dockers_data/arr/config/qbittorrent/config:/qbittorrent/etc
       - /mnt/dockers_mount/dockers_data/arr/config/qbittorrent/db:/qbittorrent/var
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${QBIT_SERVICE}.rule=Host(`${QBIT_HOST}`)"
-      - "traefik.http.routers.${QBIT_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${QBIT_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${QBIT_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.services.${QBIT_SERVICE}.loadbalancer.server.port=8080"
-      - "traefik.http.routers.${QBIT_SERVICE}.middlewares=cors-allow-www-self@file"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${QBIT_SERVICE}.rule=Host(`${QBIT_HOST}`)'
+      - 'traefik.http.routers.${QBIT_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${QBIT_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${QBIT_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.services.${QBIT_SERVICE}.loadbalancer.server.port=8080'
+      - 'traefik.http.routers.${QBIT_SERVICE}.middlewares=cors-allow-www-self@file'
+      - 'traefik.docker.network=traefik_proxy'
     ports:
       - 50272:50272
     healthcheck:
-      test: ["NONE"]
+      test: ['NONE']
     restart: unless-stopped
-
 
   jellyseerr:
     image: fallenbagel/jellyseerr:latest
@@ -153,13 +152,13 @@ services:
     environment:
       - TZ=Asia/Karachi
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${JELLYSEERR_SERVICE}.rule=Host(`${JELLYSEERR_HOST}`)"
-      - "traefik.http.routers.${JELLYSEERR_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${JELLYSEERR_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${JELLYSEERR_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.services.${JELLYSEERR_SERVICE}.loadbalancer.server.port=5055"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${JELLYSEERR_SERVICE}.rule=Host(`${JELLYSEERR_HOST}`)'
+      - 'traefik.http.routers.${JELLYSEERR_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${JELLYSEERR_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${JELLYSEERR_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.services.${JELLYSEERR_SERVICE}.loadbalancer.server.port=5055'
+      - 'traefik.docker.network=traefik_proxy'
     volumes:
       - /mnt/dockers_mount/dockers_data/arr/config/jellyseerr:/app/config
     networks:
@@ -223,4 +222,3 @@ networks:
         - subnet: 172.1.0.0/28
   traefik_proxy:
     external: true
-

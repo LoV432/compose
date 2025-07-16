@@ -7,22 +7,22 @@ services:
     volumes:
       - '/mnt/dockers_mount/dockers_data/homer/config:/www/assets'
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)"
-      - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.routers.${SERVICE}.tls.domains[1].main=monib.xyz"
-      - "traefik.http.routers.${SERVICE}.middlewares=authelia@docker"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
+      - 'traefik.http.routers.${SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[1].main=monib.xyz'
+      - 'traefik.http.routers.${SERVICE}.middlewares=authelia@docker'
 
-      - "traefik.http.routers.${SERVICE}-redirect.rule=Host(`monib.xyz`)"
-      - "traefik.http.routers.${SERVICE}-redirect.entrypoints=websecure"
-      - "traefik.http.routers.${SERVICE}-redirect.tls.certresolver=production"
-      - "traefik.http.routers.${SERVICE}-redirect.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.routers.${SERVICE}-redirect.tls.domains[1].main=monib.xyz"
-      - "traefik.http.routers.${SERVICE}-redirect.middlewares=redirect-www@file"
+      - 'traefik.http.routers.${SERVICE}-redirect.rule=Host(`monib.xyz`)'
+      - 'traefik.http.routers.${SERVICE}-redirect.entrypoints=websecure'
+      - 'traefik.http.routers.${SERVICE}-redirect.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE}-redirect.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${SERVICE}-redirect.tls.domains[1].main=monib.xyz'
+      - 'traefik.http.routers.${SERVICE}-redirect.middlewares=redirect-www@file'
 
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.docker.network=traefik_proxy'
     networks:
       traefik_proxy:
         #ports:
@@ -33,4 +33,3 @@ services:
 networks:
   traefik_proxy:
     external: true
-

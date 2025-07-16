@@ -1,17 +1,15 @@
-
-
 services:
   vaultwarden:
     image: vaultwarden/server:latest
     container_name: vaultwarden
     restart: always
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)"
-      - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
+      - 'traefik.http.routers.${SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.docker.network=traefik_proxy'
     environment:
       - PUSH_ENABLED=true
       - PUSH_INSTALLATION_ID=${PUSH_INSTALLATION_ID}
@@ -24,5 +22,3 @@ services:
 networks:
   traefik_proxy:
     external: true
-
-

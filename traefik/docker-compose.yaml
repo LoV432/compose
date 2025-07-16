@@ -1,38 +1,36 @@
 services:
-
   traefik:
-    image: "traefik:v3.3.7"
-    hostname: "traefik"
-    container_name: "traefik"
+    image: 'traefik:v3.3.7'
+    hostname: 'traefik'
+    container_name: 'traefik'
     ports:
-      - "192.168.1.22:80:80"
-      - "192.168.1.22:443:443"
-      - "8000:8000"
-      - "4434:4434"
-#      - "8080:8080"
+      - '192.168.1.22:80:80'
+      - '192.168.1.22:443:443'
+      - '8000:8000'
+      - '4434:4434'
+    #      - "8080:8080"
     environment:
-      - "CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}"
-      - "CF_API_EMAIL=${CF_API_EMAIL}"
+      - 'CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}'
+      - 'CF_API_EMAIL=${CF_API_EMAIL}'
       - TZ=Asia/Karachi
     volumes:
-      - "/mnt/dockers_mount/dockers_data/traefik/config:/etc/traefik"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - '/mnt/dockers_mount/dockers_data/traefik/config:/etc/traefik'
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)"
-      - "traefik.http.routers.${SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${SERVICE}.service=api@internal"
-      - "traefik.http.routers.${SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.routers.${SERVICE}.middlewares=authelia@docker"
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
+      - 'traefik.http.routers.${SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${SERVICE}.service=api@internal'
+      - 'traefik.http.routers.${SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${SERVICE}.middlewares=authelia@docker'
+      - 'traefik.docker.network=traefik_proxy'
 
-
-      - "traefik.http.middlewares.crowdsec-bar.plugin.bouncer.enabled=true"
-      - "traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecMode=stream"
-      - "traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecAppsecEnabled=true"
-      - "traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecAppsecHost=crowdsec:7422"
-      - "traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecLapiKey=${CROWDSEC_API_KEY}"
+      - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.enabled=true'
+      - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecMode=stream'
+      - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecAppsecEnabled=true'
+      - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecAppsecHost=crowdsec:7422'
+      - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecLapiKey=${CROWDSEC_API_KEY}'
     networks:
       traefik_proxy:
         ipv4_address: 10.0.10.254
@@ -48,8 +46,8 @@ services:
     #   - 127.0.0.1:8080:8080
     environment:
       GID: 1000
-      COLLECTIONS: "crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/traefik"
-      BOUNCER_KEY_TRAEFIK: "${CROWDSEC_API_KEY}"
+      COLLECTIONS: 'crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/traefik'
+      BOUNCER_KEY_TRAEFIK: '${CROWDSEC_API_KEY}'
     depends_on:
       - 'traefik'
     networks:
@@ -66,5 +64,3 @@ networks:
     ipam:
       config:
         - subnet: 10.0.10.0/24
-
-

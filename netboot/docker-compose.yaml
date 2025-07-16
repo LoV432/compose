@@ -10,24 +10,24 @@ services:
       # - PORT_RANGE=30000:30010 #optional
       # - SUBFOLDER=/ #optional
     labels:
-      - "traefik.enable=true"
+      - 'traefik.enable=true'
 
-      - "traefik.http.routers.${NETBOOT_SERVICE}.rule=Host(`${NETBOOT_HOST}`)"
-      - "traefik.http.routers.${NETBOOT_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${NETBOOT_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${NETBOOT_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.services.${NETBOOT_SERVICE}.loadbalancer.server.port=3000"
-      - "traefik.http.routers.${NETBOOT_SERVICE}.middlewares=authelia@docker"
-      - "traefik.http.routers.${NETBOOT_SERVICE}.service=netboot"
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.rule=Host(`${NETBOOT_HOST}`)'
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.services.${NETBOOT_SERVICE}.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.middlewares=authelia@docker'
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.service=netboot'
 
-      - "traefik.http.routers.${ASSETS_SERVICE}.rule=Host(`${ASSETS_HOST}`)"
-      - "traefik.http.routers.${ASSETS_SERVICE}.entrypoints=websecure"
-      - "traefik.http.routers.${ASSETS_SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${ASSETS_SERVICE}.tls.domains[0].main=*.monib.xyz"
-      - "traefik.http.services.${ASSETS_SERVICE}.loadbalancer.server.port=80"
-      - "traefik.http.routers.${ASSETS_SERVICE}.service=netboot-assets"
-      
-      - "traefik.docker.network=traefik_proxy"
+      - 'traefik.http.routers.${ASSETS_SERVICE}.rule=Host(`${ASSETS_HOST}`)'
+      - 'traefik.http.routers.${ASSETS_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${ASSETS_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${ASSETS_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.services.${ASSETS_SERVICE}.loadbalancer.server.port=80'
+      - 'traefik.http.routers.${ASSETS_SERVICE}.service=netboot-assets'
+
+      - 'traefik.docker.network=traefik_proxy'
     volumes:
       - /mnt/dockers_mount/dockers_data/netboot/config:/config
       - /mnt/dockers_mount/dockers_data/netboot/assets:/assets #optional
@@ -41,5 +41,5 @@ services:
     restart: unless-stopped
 
 networks:
-    traefik_proxy:
-       external: true
+  traefik_proxy:
+    external: true

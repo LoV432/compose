@@ -1,4 +1,3 @@
-
 services:
   watchtower:
     container_name: watchtower
@@ -6,14 +5,13 @@ services:
     environment:
       WATCHTOWER_SCHEDULE: 0 0 4 * * *
       TZ: Asia/Karachi
-      WATCHTOWER_CLEANUP: "true"
+      WATCHTOWER_CLEANUP: 'true'
     image: containrrr/watchtower
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
-      traefik_proxy:       
+      traefik_proxy:
 
 networks:
   traefik_proxy:
     external: true
-

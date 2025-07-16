@@ -13,8 +13,8 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
       - 'traefik.http.routers.${SERVICE}.entrypoints=websecure,websecure-public'
-      - "traefik.http.routers.${SERVICE}.tls.certresolver=production"
-      - "traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz"
+      - 'traefik.http.routers.${SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz'
       - 'traefik.http.services.${SERVICE}.loadbalancer.server.port=9091'
       - 'traefik.docker.network=traefik_proxy'
       - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://${HOST}'
@@ -41,7 +41,6 @@ services:
     restart: unless-stopped
     environment:
       - TZ=Asia/Karachi
-
 
 networks:
   authelia-network:

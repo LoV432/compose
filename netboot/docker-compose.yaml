@@ -29,8 +29,8 @@ services:
 
       - 'traefik.docker.network=traefik_proxy'
     volumes:
-      - /mnt/dockers_mount/dockers_data/netboot/config:/config
-      - /mnt/dockers_mount/dockers_data/netboot/assets:/assets #optional
+      - /home/lov432/dockers_data/netboot/config:/config
+      - /home/lov432/dockers_data/netboot/assets:/assets #optional
       #- /home/windowsinstallers/windows_installers:/home/windowsinstallers/windows_installers
     ports:
       # - 3000:3000

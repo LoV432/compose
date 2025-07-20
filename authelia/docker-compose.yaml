@@ -3,7 +3,7 @@ services:
     image: authelia/authelia
     container_name: authelia
     volumes:
-      - /mnt/dockers_mount/dockers_data/authelia/config:/config
+      - /home/lov432/dockers_data/authelia/config:/config
     networks:
       traefik_proxy:
       authelia-network:
@@ -24,8 +24,6 @@ services:
     #   - 9091:9091
     user: 1000:1000
     restart: unless-stopped
-    environment:
-      - TZ=Asia/Karachi
     # healthcheck:
     #   disable: true
 
@@ -33,14 +31,12 @@ services:
     image: redis:alpine
     container_name: redis
     volumes:
-      - /mnt/dockers_mount/dockers_data/authelia/redis:/data
+      - /home/lov432/dockers_data/authelia/redis:/data
     networks:
       authelia-network:
     # expose:
     #   - 6379
     restart: unless-stopped
-    environment:
-      - TZ=Asia/Karachi
 
 networks:
   authelia-network:

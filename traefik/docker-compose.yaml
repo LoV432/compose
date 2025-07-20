@@ -12,9 +12,8 @@ services:
     environment:
       - 'CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}'
       - 'CF_API_EMAIL=${CF_API_EMAIL}'
-      - TZ=Asia/Karachi
     volumes:
-      - '/mnt/dockers_mount/dockers_data/traefik/config:/etc/traefik'
+      - '/home/lov432/dockers_data/traefik/config:/etc/traefik'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
       - 'traefik.enable=true'
@@ -48,14 +47,12 @@ services:
       GID: 1000
       COLLECTIONS: 'crowdsecurity/appsec-virtual-patching crowdsecurity/appsec-generic-rules crowdsecurity/traefik'
       BOUNCER_KEY_TRAEFIK: '${CROWDSEC_API_KEY}'
-    depends_on:
-      - 'traefik'
     networks:
       traefik_proxy:
     volumes:
-      - /mnt/dockers_mount/dockers_data/crowdsec/db:/var/lib/crowdsec/data/
-      - /mnt/dockers_mount/dockers_data/crowdsec/config:/etc/crowdsec/
-      - /mnt/dockers_mount/dockers_data/traefik/config/logs:/var/log/traefik/:ro
+      - /home/lov432/dockers_data/crowdsec/db:/var/lib/crowdsec/data/
+      - /home/lov432/dockers_data/crowdsec/config:/etc/crowdsec/
+      - /home/lov432/dockers_data/traefik/config/logs:/var/log/traefik/:ro
 
 networks:
   traefik_proxy:

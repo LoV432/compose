@@ -5,7 +5,7 @@ services:
       - UID=1000
       - GID=1000
     volumes:
-      - '/mnt/dockers_mount/dockers_data/homer/config:/www/assets'
+      - '/home/lov432/dockers_data/homer/config:/www/assets'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'

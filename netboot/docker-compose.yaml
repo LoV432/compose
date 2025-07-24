@@ -1,11 +1,34 @@
 services:
+  boot-server:
+    image: lov432/netboot-boot-server:latest
+    container_name: boot-server
+    labels:
+      - 'traefik.enable=true'
+
+      - 'traefik.http.routers.${BOOT_SERVICE}.rule=Host(`${BOOT_HOST}`)'
+      - 'traefik.http.routers.${BOOT_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${BOOT_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${BOOT_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.services.${BOOT_SERVICE}.loadbalancer.server.port=80'
+      - 'traefik.http.routers.${BOOT_SERVICE}.service=${BOOT_SERVICE}'
+
+      - 'traefik.http.routers.${BOOT_SERVICE}-http.rule=Host(`${BOOT_HOST}`)'
+      - 'traefik.http.routers.${BOOT_SERVICE}-http.entrypoints=web-pxe'
+      - 'traefik.http.routers.${BOOT_SERVICE}-http.service=${BOOT_SERVICE}'
+
+      - 'traefik.docker.network=traefik_proxy'
+    networks:
+      - traefik_proxy
+    ports:
+      - 69:69/udp
+    restart: unless-stopped
+
   netbootxyz:
-    image: lscr.io/linuxserver/netbootxyz:latest
+    image: netbootxyz/netbootxyz
     container_name: netbootxyz
     environment:
       - PUID=1000
       - PGID=1000
-      - TZ=Etc/UTC
       # - MENU_VERSION=1.9.9 #optional
       # - PORT_RANGE=30000:30010 #optional
       # - SUBFOLDER=/ #optional
@@ -16,26 +39,29 @@ services:
       - 'traefik.http.routers.${NETBOOT_SERVICE}.entrypoints=websecure'
       - 'traefik.http.routers.${NETBOOT_SERVICE}.tls.certresolver=production'
       - 'traefik.http.routers.${NETBOOT_SERVICE}.tls.domains[0].main=*.monib.xyz'
-      - 'traefik.http.services.${NETBOOT_SERVICE}.loadbalancer.server.port=3000'
       - 'traefik.http.routers.${NETBOOT_SERVICE}.middlewares=authelia@docker'
-      - 'traefik.http.routers.${NETBOOT_SERVICE}.service=netboot'
+      - 'traefik.http.services.${NETBOOT_SERVICE}.loadbalancer.server.port=3000'
+      - 'traefik.http.routers.${NETBOOT_SERVICE}.service=${NETBOOT_SERVICE}'
 
       - 'traefik.http.routers.${ASSETS_SERVICE}.rule=Host(`${ASSETS_HOST}`)'
       - 'traefik.http.routers.${ASSETS_SERVICE}.entrypoints=websecure'
       - 'traefik.http.routers.${ASSETS_SERVICE}.tls.certresolver=production'
       - 'traefik.http.routers.${ASSETS_SERVICE}.tls.domains[0].main=*.monib.xyz'
       - 'traefik.http.services.${ASSETS_SERVICE}.loadbalancer.server.port=80'
-      - 'traefik.http.routers.${ASSETS_SERVICE}.service=netboot-assets'
+      - 'traefik.http.routers.${ASSETS_SERVICE}.service=${ASSETS_SERVICE}'
+
+      - 'traefik.http.routers.${ASSETS_SERVICE}-http.rule=Host(`${ASSETS_HOST}`)'
+      - 'traefik.http.routers.${ASSETS_SERVICE}-http.entrypoints=web-pxe'
+      - 'traefik.http.routers.${ASSETS_SERVICE}-http.service=${ASSETS_SERVICE}'
 
       - 'traefik.docker.network=traefik_proxy'
     volumes:
       - /home/lov432/dockers_data/netboot/config:/config
-      - /home/lov432/dockers_data/netboot/assets:/assets #optional
-      #- /home/windowsinstallers/windows_installers:/home/windowsinstallers/windows_installers
-    ports:
-      # - 3000:3000
-      - 69:69/udp
-      - 8080:80 #optional
+      - /mnt/netboot/assets:/assets
+    # ports:
+    # - 3000:3000
+    # - 69:69/udp
+    # - 8080:80 #optional
     networks:
       traefik_proxy:
     restart: unless-stopped

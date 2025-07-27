@@ -1,0 +1,125 @@
+global:
+  checkNewVersion: true
+  sendAnonymousUsage: false # true by default
+serversTransport:
+  insecureSkipVerify: true
+# (Optional) Log information
+# ---
+log:
+  level: INFO # DEBUG, INFO, WARNING, ERROR, CRITICAL
+#   format: common  # common, json, logfmt
+#   filePath: /var/log/traefik/traefik.log
+
+# (Optional) Accesslog
+# ---
+accesslog:
+  format: json # common, json, logfmt
+  filePath: '/etc/traefik/logs/access.log'
+  bufferingSize: 100
+  fields:
+    # defaultMode: drop
+    # names:
+    #   ClientHost: keep
+    #   StartLocal: keep
+    #   RequestPath: keep
+    #   RequestMethod: keep
+    #   RequestProtocol: keep
+    #   OriginStatus: keep
+    #   RouterName: keep
+    headers:
+      defaultMode: drop
+      names:
+        User-Agent: keep
+        Authorization: keep
+        Content-Type: keep
+
+# (Optional) Enable API and Dashboard
+# ---
+api:
+  dashboard: true # true by default
+# insecure: true  # Don't do this in production!
+
+# Entry Points configuration
+# ---
+entryPoints:
+  # Private network
+  web:
+    address: :80
+    http:
+      redirections:
+        entryPoint:
+          to: websecure
+          scheme: https
+  websecure:
+    address: :443
+
+  web-pxe:
+    address: :8001
+
+  # Public network
+  web-public:
+    address: :8000
+    http:
+      redirections:
+        entrypoint:
+          to: :443
+          scheme: https
+  websecure-public:
+    address: :4434
+    http:
+      middlewares:
+        - 'crowdsec-bar@docker'
+
+# Configure your CertificateResolver here...
+# ---
+certificatesResolvers:
+  staging:
+    acme:
+      email: monib619@gmail.com
+      storage: /etc/traefik/certs/acme.json
+      caServer: 'https://acme-staging-v02.api.letsencrypt.org/directory'
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 10
+        disablePropagationCheck: true
+
+  production:
+    acme:
+      email: monib619@gmail.com
+      storage: /etc/traefik/certs/acme.json
+      caServer: 'https://acme-v02.api.letsencrypt.org/directory'
+      dnsChallenge:
+        provider: cloudflare
+        delayBeforeCheck: 10
+        disablePropagationCheck: true
+
+# (Optional) Overwrite Default Certificates
+tls:
+  certificates:
+    embyCrack:
+      certFile: /etc/traefik/certs/cert/server.crt
+      keyFile: /etc/traefik/certs/cert/server.key
+  #tls:
+  #   stores:
+  #     default:
+  #       defaultCertificate:
+  #         certFile: /etc/traefik/certs/cert.pem
+  #         keyFile: /etc/traefik/certs/cert-key.pem
+  # (Optional) Disable TLS version 1.0 and 1.1
+  options:
+    default:
+      minVersion: VersionTLS12
+
+providers:
+  docker:
+    exposedByDefault: false # Default is true
+  file:
+    # watch for dynamic configuration changes
+    directory: /config
+    watch: true
+
+experimental:
+  plugins:
+    bouncer:
+      moduleName: 'github.com/maxlerebourg/crowdsec-bouncer-traefik-plugin'
+      version: 'v1.4.4'

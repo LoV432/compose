@@ -5,7 +5,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - /home/lov432/dockers_data/postgres/db:/var/lib/postgresql/data
+      - /home/lov432/dockers/dockers_data/postgres/db:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=${PG_PASSWORD}
       - POSTGRES_USER=${PG_USER}
@@ -19,7 +19,7 @@ services:
     ports:
       - '6379:6379'
     volumes:
-      - /home/lov432/dockers_data/postgres/data:/data
+      - /home/lov432/dockers/dockers_data/postgres/data:/data
     environment:
       - REDIS_PASSWORD=${REDIS_PASSWORD}
       - REDIS_HOST=${REDIS_HOST}

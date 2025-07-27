@@ -11,9 +11,9 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /home/lov432/dockers_data/arr/config/sonarr:/config
+      - /home/lov432/dockers/dockers_data/arr/config/sonarr:/config
       - /mnt/media:/media
-      - /mnt/dockers_mount/dockers_backup/arr/sonarr:/Backups
+      - /home/lov432/dockers/dockers_backup/arr/sonarr:/Backups
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${SONARR_SERVICE}.rule=Host(`${SONARR_HOST}`)'
@@ -36,9 +36,9 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /home/lov432/dockers_data/arr/config/radarr:/config
+      - /home/lov432/dockers/dockers_data/arr/config/radarr:/config
       - /mnt/media:/media
-      - /mnt/dockers_mount/dockers_backup/arr/radarr:/Backups
+      - /home/lov432/dockers/dockers_backup/arr/radarr:/Backups
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${RADARR_SERVICE}.rule=Host(`${RADARR_HOST}`)'
@@ -69,8 +69,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /home/lov432/dockers_data/arr/config/prowlarr/data:/config
-      - /mnt/dockers_mount/dockers_backup/arr/prowlarr:/Backups
+      - /home/lov432/dockers/dockers_data/arr/config/prowlarr/data:/config
+      - /home/lov432/dockers/dockers_backup/arr/prowlarr:/Backups
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${PROWLARR_SERVICE}.rule=Host(`${PROWLARR_HOST}`)'
@@ -100,7 +100,7 @@ services:
   #     - WEBUI_PORT=8080
   #     - DOCKER_MODS=arafatamim/linuxserver-io-mod-vuetorrent
   #   volumes:
-  #     - /home/lov432/dockers_data/arr/config/qbit:/config
+  #     - /home/lov432/dockers/dockers_data/arr/config/qbit:/config
   #     - /mnt/media:/media
   #   labels:
   #     - "traefik.enable=true"
@@ -125,8 +125,8 @@ services:
       traefik_proxy:
     volumes:
       - /mnt/media:/media
-      - /home/lov432/dockers_data/arr/config/qbittorrent/config:/qbittorrent/etc
-      - /home/lov432/dockers_data/arr/config/qbittorrent/db:/qbittorrent/var
+      - /home/lov432/dockers/dockers_data/arr/config/qbittorrent/config:/qbittorrent/etc
+      - /home/lov432/dockers/dockers_data/arr/config/qbittorrent/db:/qbittorrent/var
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${QBIT_SERVICE}.rule=Host(`${QBIT_HOST}`)'
@@ -154,7 +154,7 @@ services:
       - 'traefik.http.services.${JELLYSEERR_SERVICE}.loadbalancer.server.port=5055'
       - 'traefik.docker.network=traefik_proxy'
     volumes:
-      - /home/lov432/dockers_data/arr/config/jellyseerr:/app/config
+      - /home/lov432/dockers/dockers_data/arr/config/jellyseerr:/app/config
     networks:
       err-apps:
         ipv4_address: 172.1.0.7

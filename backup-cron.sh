@@ -15,10 +15,10 @@ echo ""
 export RESTIC_REPOSITORY="rclone:gdrive-backup:restic-backups"
 export RCLONE_CONFIG="/home/lov432/.config/rclone/rclone.conf"
 
-DATA_DIR="/home/lov432/dockers_data"
-BACKUP_DIR="/mnt/dockers_mount/dockers_backup"
-COMPOSE_DIR="/mnt/dockers_mount/compose"
-VAULTWARDEN_COMPOSE="/mnt/dockers_mount/compose/vaultwarden/docker-compose.yaml"
+DATA_DIR="/home/lov432/dockers/dockers_data"
+BACKUP_DIR="/home/lov432/dockers/dockers_backup"
+COMPOSE_DIR="/home/lov432/dockers/compose"
+VAULTWARDEN_COMPOSE="/home/lov432/dockers/compose/vaultwarden/docker-compose.yaml"
 
 # === Failure handler ===
 notify_failure() {

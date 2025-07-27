@@ -3,7 +3,7 @@ services:
     image: authelia/authelia
     container_name: authelia
     volumes:
-      - /home/lov432/dockers_data/authelia/config:/config
+      - /home/lov432/dockers/dockers_data/authelia/config:/config
     networks:
       traefik_proxy:
       authelia-network:
@@ -31,7 +31,7 @@ services:
     image: redis:alpine
     container_name: redis
     volumes:
-      - /home/lov432/dockers_data/authelia/redis:/data
+      - /home/lov432/dockers/dockers_data/authelia/redis:/data
     networks:
       authelia-network:
     # expose:

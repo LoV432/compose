@@ -6,15 +6,19 @@ services:
     ports:
       - '192.168.1.22:80:80'
       - '192.168.1.22:443:443'
+      - '192.168.1.22:8001:8001'
       - '8000:8000'
       - '4434:4434'
-      - '192.168.1.22:8001:8001'
-    #      - "8080:8080"
+      #- "8080:8080"
     environment:
       - 'CF_DNS_API_TOKEN=${CF_DNS_API_TOKEN}'
       - 'CF_API_EMAIL=${CF_API_EMAIL}'
+      # This changes the config dir so i can easily put my config in the git repo
+      # This doesn't seem to be officially supported so remove if any issues
+      - 'XDG_CONFIG_HOME=/config/'
     volumes:
-      - '/home/lov432/dockers_data/traefik/config:/etc/traefik'
+      - '/home/lov432/dockers/dockers_data/traefik/config:/etc/traefik'
+      - '/home/lov432/dockers/compose/traefik/config:/config'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
       - 'traefik.enable=true'
@@ -51,9 +55,9 @@ services:
     networks:
       traefik_proxy:
     volumes:
-      - /home/lov432/dockers_data/crowdsec/db:/var/lib/crowdsec/data/
-      - /home/lov432/dockers_data/crowdsec/config:/etc/crowdsec/
-      - /home/lov432/dockers_data/traefik/config/logs:/var/log/traefik/:ro
+      - /home/lov432/dockers/dockers_data/crowdsec/db:/var/lib/crowdsec/data/
+      - /home/lov432/dockers/dockers_data/crowdsec/config:/etc/crowdsec/
+      - /home/lov432/dockers/dockers_data/traefik/config/logs:/var/log/traefik/:ro
 
 networks:
   traefik_proxy:

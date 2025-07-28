@@ -1,0 +1,31 @@
+services:
+  filebrowser:
+    environment:
+      FILEBROWSER_CONFIG: '/config/config.yaml'
+      FILEBROWSER_ADMIN_PASSWORD: '${ADMIN_PASSWORD}'
+      TZ: 'Asia/Karachi'
+    volumes:
+      - '/mnt/media:/folder/media'
+      - '/mnt/netboot:/folder/netboot'
+      - '/home/lov432/dockers:/folder/dockers'
+      - '/home/lov432/dockers/compose/filebrowser/config:/config'
+      - '/home/lov432/dockers/dockers_data/filebrowser:/home/filebrowser/data'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${FILEBROWSER_SERVICE}.rule=Host(`${FILEBROWSER_HOST}`)'
+      - 'traefik.http.routers.${FILEBROWSER_SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${FILEBROWSER_SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${FILEBROWSER_SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.services.${FILEBROWSER_SERVICE}.loadbalancer.server.port=80'
+      - 'traefik.docker.network=traefik_proxy'
+    networks:
+      traefik_proxy:
+    # ports:
+    #   - '80:80'
+    image: gtstef/filebrowser
+    user: filebrowser
+    restart: unless-stopped
+
+networks:
+  traefik_proxy:
+    external: true

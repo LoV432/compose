@@ -1,7 +1,7 @@
 #!/bin/bash
 set -eu
 
-source .restic.env
+source /home/lov432/.restic.env
 # The .restic.env has this:
 # export RESTIC_PASSWORD=""
 # export DISCORD_WEBHOOK_URL=""

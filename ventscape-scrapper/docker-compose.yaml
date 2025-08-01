@@ -4,7 +4,7 @@ services:
       - SYS_ADMIN
     image: lov432/ventscapescrapper:latest
     volumes:
-      - /home/lov432/dockers/dockers_data/ventscape-scrapper/logs/:/home/node/app/logs
+      - ${HOME}/dockers/dockers_data/ventscape-scrapper/logs/:/home/node/app/logs
     environment:
       - 'PG_USER=${PG_USER}'
       - 'PG_HOST=${PG_HOST}'

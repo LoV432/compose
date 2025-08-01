@@ -15,7 +15,7 @@ services:
       - PUSH_INSTALLATION_ID=${PUSH_INSTALLATION_ID}
       - PUSH_INSTALLATION_KEY=${PUSH_INSTALLATION_KEY}
     volumes:
-      - /home/lov432/dockers/dockers_data/vaultwarden/vw-data:/data
+      - ${HOME}/dockers/dockers_data/vaultwarden/vw-data:/data
     networks:
       traefik_proxy:
 

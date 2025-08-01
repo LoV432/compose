@@ -6,8 +6,8 @@ services:
     #ports:
     #  - "8081:8081"
     volumes:
-      - /home/lov432/dockers/dockers_data/yt-download/downloads:/downloads
-      - /home/lov432/dockers/dockers_data/yt-download/cookies:/cookies
+      - ${HOME}/dockers/dockers_data/yt-download/downloads:/downloads
+      - ${HOME}/dockers/dockers_data/yt-download/cookies:/cookies
     networks:
       traefik_proxy:
     environment:

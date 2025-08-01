@@ -7,9 +7,9 @@ services:
     volumes:
       - '/mnt/media:/folder/media'
       - '/mnt/netboot:/folder/netboot'
-      - '/home/lov432/dockers:/folder/dockers'
-      - '/home/lov432/dockers/compose/filebrowser/config:/config'
-      - '/home/lov432/dockers/dockers_data/filebrowser:/home/filebrowser/data'
+      - '${HOME}/dockers:/folder/dockers'
+      - '${HOME}/dockers/compose/filebrowser/config:/config'
+      - '${HOME}/dockers/dockers_data/filebrowser:/home/filebrowser/data'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${FILEBROWSER_SERVICE}.rule=Host(`${FILEBROWSER_HOST}`)'

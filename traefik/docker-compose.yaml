@@ -17,8 +17,8 @@ services:
       # This doesn't seem to be officially supported so remove if any issues
       - 'XDG_CONFIG_HOME=/config/'
     volumes:
-      - '/home/lov432/dockers/dockers_data/traefik/config:/etc/traefik'
-      - '/home/lov432/dockers/compose/traefik/config:/config'
+      - '${HOME}/dockers/dockers_data/traefik/config:/etc/traefik'
+      - '${HOME}/dockers/compose/traefik/config:/config'
       - '/var/run/docker.sock:/var/run/docker.sock:ro'
     labels:
       - 'traefik.enable=true'
@@ -62,16 +62,16 @@ services:
     networks:
       traefik_proxy:
     volumes:
-      - /home/lov432/dockers/dockers_data/crowdsec/db:/var/lib/crowdsec/data/
-      - /home/lov432/dockers/dockers_data/crowdsec/config:/etc/crowdsec/
-      - /home/lov432/dockers/dockers_data/traefik/config/logs:/var/log/traefik/:ro
+      - ${HOME}/dockers/dockers_data/crowdsec/db:/var/lib/crowdsec/data/
+      - ${HOME}/dockers/dockers_data/crowdsec/config:/etc/crowdsec/
+      - ${HOME}/dockers/dockers_data/traefik/config/logs:/var/log/traefik/:ro
 
   authelia:
     image: authelia/authelia
     container_name: authelia
     volumes:
-      - /home/lov432/dockers/dockers_data/traefik/authelia/db:/db
-      - /home/lov432/dockers/compose/traefik/authelia/config:/config
+      - ${HOME}/dockers/dockers_data/traefik/authelia/db:/db
+      - ${HOME}/dockers/compose/traefik/authelia/config:/config
     security_opt:
       - no-new-privileges:true
     labels:
@@ -94,7 +94,7 @@ services:
     image: redis:alpine
     container_name: redis
     volumes:
-      - /home/lov432/dockers/dockers_data/traefik/authelia/redis:/data
+      - ${HOME}/dockers/dockers_data/traefik/authelia/redis:/data
     # expose:
     #   - 6379
     networks:

@@ -56,7 +56,7 @@ services:
 
       - 'traefik.docker.network=traefik_proxy'
     volumes:
-      - /home/lov432/dockers/dockers_data/netboot/config:/config
+      - ${HOME}/dockers/dockers_data/netboot/config:/config
       - /mnt/netboot/assets:/assets
     # ports:
     # - 3000:3000

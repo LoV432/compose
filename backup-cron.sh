@@ -76,11 +76,7 @@ BACKUP_PATHS=(
   "$DATA_DIR/traefik"
   "$DATA_DIR/vaultwarden"
   "$DATA_DIR/yt-download"
-  "$BACKUP_DIR/arr"
-  "$BACKUP_DIR/emby"
-  "$BACKUP_DIR/pihole"
-  "$BACKUP_DIR/openwrt"
-  "$BACKUP_DIR/sing-box"
+  "$BACKUP_DIR"
   "$COMPOSE_DIR"
 )
 

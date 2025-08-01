@@ -71,7 +71,6 @@ echo ""
 
 # === What to backup ===
 BACKUP_PATHS=(
-  "$DATA_DIR/authelia"
   "$DATA_DIR/homer"
   "$DATA_DIR/traefik"
   "$DATA_DIR/vaultwarden"

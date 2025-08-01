@@ -35,6 +35,10 @@ services:
       - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecAppsecEnabled=true'
       - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecAppsecHost=crowdsec:7422'
       - 'traefik.http.middlewares.crowdsec-bar.plugin.bouncer.crowdsecLapiKey=${CROWDSEC_API_KEY}'
+
+      - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://${HOST}'
+      - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
+      - 'traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
     depends_on:
       - authelia
       - crowdsec
@@ -77,9 +81,6 @@ services:
       - 'traefik.http.routers.${AUTH_SERVICE}.tls.certresolver=production'
       - 'traefik.http.routers.${AUTH_SERVICE}.tls.domains[0].main=*.monib.xyz'
       - 'traefik.http.services.${AUTH_SERVICE}.loadbalancer.server.port=9091'
-      - 'traefik.http.middlewares.authelia.forwardAuth.address=http://authelia:9091/api/verify?rd=https://${HOST}'
-      - 'traefik.http.middlewares.authelia.forwardAuth.trustForwardHeader=true'
-      - 'traefik.http.middlewares.authelia.forwardAuth.authResponseHeaders=Remote-User,Remote-Groups,Remote-Name,Remote-Email'
     # ports:
     #   - 9091:9091
     networks:

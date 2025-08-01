@@ -3,7 +3,8 @@ services:
     image: authelia/authelia
     container_name: authelia
     volumes:
-      - /home/lov432/dockers/dockers_data/authelia/config:/config
+      - /home/lov432/dockers/dockers_data/authelia/db:/db
+      - /home/lov432/dockers/compose/authelia/config:/config
     networks:
       traefik_proxy:
       authelia-network:

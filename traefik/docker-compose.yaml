@@ -87,6 +87,8 @@ services:
       traefik_proxy:
     user: 1000:1000
     restart: unless-stopped
+    depends_on:
+      - redis
     # healthcheck:
     #   disable: true
 
@@ -99,8 +101,6 @@ services:
     #   - 6379
     networks:
       traefik_proxy:
-    depends_on:
-      - authelia
     restart: unless-stopped
 
 networks:

@@ -5,7 +5,7 @@ services:
     hostname: sonarr
     networks:
       traefik_proxy:
-      err-apps:
+      arr-apps:
         ipv4_address: 172.1.0.2
     environment:
       - PUID=1000
@@ -30,7 +30,7 @@ services:
     hostname: radarr
     networks:
       traefik_proxy:
-      err-apps:
+      arr-apps:
         ipv4_address: 172.1.0.5
     environment:
       - PUID=1000
@@ -58,7 +58,7 @@ services:
   #     - CAPTCHA_SOLVER=none
   #     - TZ=Europe/London
   #   networks:
-  #     err-apps:
+  #     arr-apps:
   #       ipv4_address: 172.1.0.6
   #   restart: unless-stopped
 
@@ -81,7 +81,7 @@ services:
       - 'traefik.docker.network=traefik_proxy'
     networks:
       traefik_proxy:
-      err-apps:
+      arr-apps:
         ipv4_address: 172.1.0.8
     # ports:
     #   - 9696:9696
@@ -91,7 +91,7 @@ services:
   #   image: ghcr.io/linuxserver/qbittorrent:latest
   #   container_name: qbit
   #   networks:
-  #     err-apps:
+  #     arr-apps:
   #       ipv4_address: 172.1.0.3
   #     traefik_proxy:
   #   environment:
@@ -120,7 +120,7 @@ services:
     container_name: qbit
     read_only: true
     networks:
-      err-apps:
+      arr-apps:
         ipv4_address: 172.1.0.3
       traefik_proxy:
     volumes:
@@ -156,7 +156,7 @@ services:
     volumes:
       - ${HOME}/dockers/dockers_data/arr/config/jellyseerr:/app/config
     networks:
-      err-apps:
+      arr-apps:
         ipv4_address: 172.1.0.7
       traefik_proxy:
     restart: unless-stopped
@@ -199,13 +199,13 @@ services:
       QBITTORRENT_PASSWORD: ${DECLUTTARR_QBIT_PASSWORD}
 
     networks:
-      err-apps:
+      arr-apps:
         ipv4_address: 172.1.0.9
       traefik_proxy:
 
 networks:
-  err-apps:
-    name: err-apps
+  arr-apps:
+    name: arr-apps
     driver: bridge
     ipam:
       config:

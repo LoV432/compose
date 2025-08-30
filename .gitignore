@@ -1,4 +1,5 @@
-/emby-*
+/emby/cert
+/emby/src
 *.sql
 *.env*
 /traefik/authelia

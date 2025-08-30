@@ -11,7 +11,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${HOME}/dockers/dockers_data/arr/config/sonarr:/config
+      - ${HOME}/dockers/dockers_data/arr/sonarr:/config
       - /mnt/media:/media
       - ${HOME}/dockers/dockers_backup/arr/sonarr:/Backups
     labels:
@@ -36,7 +36,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${HOME}/dockers/dockers_data/arr/config/radarr:/config
+      - ${HOME}/dockers/dockers_data/arr/radarr:/config
       - /mnt/media:/media
       - ${HOME}/dockers/dockers_backup/arr/radarr:/Backups
     labels:
@@ -69,7 +69,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - ${HOME}/dockers/dockers_data/arr/config/prowlarr/data:/config
+      - ${HOME}/dockers/dockers_data/arr/prowlarr:/config
       - ${HOME}/dockers/dockers_backup/arr/prowlarr:/Backups
     labels:
       - 'traefik.enable=true'
@@ -100,7 +100,7 @@ services:
   #     - WEBUI_PORT=8080
   #     - DOCKER_MODS=arafatamim/linuxserver-io-mod-vuetorrent
   #   volumes:
-  #     - ${HOME}/dockers/dockers_data/arr/config/qbit:/config
+  #     - ${HOME}/dockers/dockers_data/arr/qbit:/config
   #     - /mnt/media:/media
   #   labels:
   #     - "traefik.enable=true"
@@ -125,8 +125,8 @@ services:
       traefik_proxy:
     volumes:
       - /mnt/media:/media
-      - ${HOME}/dockers/dockers_data/arr/config/qbittorrent/config:/qbittorrent/etc
-      - ${HOME}/dockers/dockers_data/arr/config/qbittorrent/db:/qbittorrent/var
+      - ${HOME}/dockers/dockers_data/arr/qbittorrent/config:/qbittorrent/etc
+      - ${HOME}/dockers/dockers_data/arr/qbittorrent/db:/qbittorrent/var
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${QBIT_SERVICE}.rule=Host(`${QBIT_HOST}`)'
@@ -154,7 +154,7 @@ services:
       - 'traefik.http.services.${JELLYSEERR_SERVICE}.loadbalancer.server.port=5055'
       - 'traefik.docker.network=traefik_proxy'
     volumes:
-      - ${HOME}/dockers/dockers_data/arr/config/jellyseerr:/app/config
+      - ${HOME}/dockers/dockers_data/arr/jellyseerr:/app/config
     networks:
       arr-apps:
         ipv4_address: 172.1.0.7

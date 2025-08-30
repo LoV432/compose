@@ -6,7 +6,7 @@ services:
     restart: always
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
-      - '${HOME}/dockers/dockers_data/portainer/portainer_data:/data'
+      - '${HOME}/dockers/dockers_data/portainer:/data'
     networks:
       traefik_proxy:
     labels:

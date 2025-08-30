@@ -1,0 +1,19 @@
+services:
+  cronemby:
+    build: .
+    container_name: cronemby
+    networks:
+      traefik_proxy:
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE}.tls=true'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
+      - 'traefik.http.routers.${SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=${HOST}'
+      - 'traefik.http.services.${SERVICE}.loadbalancer.server.scheme=https'
+      - 'traefik.docker.network=traefik_proxy'
+      - 'com.centurylinklabs.watchtower.enable=false'
+    restart: unless-stopped
+networks:
+  traefik_proxy:
+    external: true

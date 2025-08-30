@@ -1,0 +1,16 @@
+services:
+  jellyfin:
+    image: lscr.io/linuxserver/jellyfin:latest
+    hostname: jellyfin
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=100
+    ports:
+      - 8097:8096
+    volumes:
+      - ${HOME}/dockers/dockers_data/jellyfin/:/config
+      - /media:/media
+    devices:
+      - /dev/dri:/dev/dri
+    restart: unless-stopped

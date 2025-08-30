@@ -1,0 +1,21 @@
+services:
+  emby:
+    image: lov432/emby:latest
+    #image: lscr.io/linuxserver/emby:beta
+    hostname: emby
+    container_name: emby
+    environment:
+      - PUID=1000
+      - PGID=100
+    #  - GIDLIST=100
+    ports:
+      - 8096:8096
+    volumes:
+      - ${HOME}/dockers/dockers_data/emby/:/config
+      - ${HOME}/dockers/dockers_backup/emby/:/backups
+      - /media:/media
+      - ./cert:/usr/local/share/ca-certificates/
+    devices:
+      - /dev/dri:/dev/dri
+    entrypoint: ['bash', '-c', 'update-ca-certificates && /init']
+    restart: unless-stopped

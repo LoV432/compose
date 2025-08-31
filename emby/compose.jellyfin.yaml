@@ -10,7 +10,7 @@ services:
       - 8097:8096
     volumes:
       - ${HOME}/dockers/dockers_data/jellyfin/:/config
-      - /media:/media
+      - /mnt/media:/media
     devices:
       - /dev/dri:/dev/dri
     restart: unless-stopped

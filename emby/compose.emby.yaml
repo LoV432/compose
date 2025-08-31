@@ -13,7 +13,7 @@ services:
     volumes:
       - ${HOME}/dockers/dockers_data/emby/:/config
       - ${HOME}/dockers/dockers_backup/emby/:/backups
-      - /media:/media
+      - /mnt/media:/media
       - ./cert:/usr/local/share/ca-certificates/
     devices:
       - /dev/dri:/dev/dri

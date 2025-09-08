@@ -1,15 +1,11 @@
 services:
   filebrowser:
-    environment:
-      FILEBROWSER_CONFIG: '/config/config.yaml'
-      FILEBROWSER_ADMIN_PASSWORD: '${ADMIN_PASSWORD}'
-      TZ: 'Asia/Karachi'
     volumes:
-      - '/mnt/media:/folder/media'
-      - '/mnt/netboot:/folder/netboot'
-      - '${HOME}/dockers:/folder/dockers'
+      - '/mnt/media:/srv/media'
+      - '/mnt/netboot:/srv/netboot'
+      - '${HOME}/dockers:/srv/dockers'
       - '${HOME}/dockers/compose/filebrowser/config:/config'
-      - '${HOME}/dockers/dockers_data/filebrowser:/home/filebrowser/data'
+      - '${HOME}/dockers/dockers_data/filebrowser:/database'
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${FILEBROWSER_SERVICE}.rule=Host(`${FILEBROWSER_HOST}`)'
@@ -22,8 +18,7 @@ services:
       traefik_proxy:
     # ports:
     #   - '80:80'
-    image: gtstef/filebrowser
-    user: filebrowser
+    image: filebrowser/filebrowser
     restart: unless-stopped
 
 networks:

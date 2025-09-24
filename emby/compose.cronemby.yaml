@@ -4,6 +4,10 @@ services:
     container_name: cronemby
     networks:
       traefik_proxy:
+    environment:
+      - emby-domain=https://emby.monib.xyz
+      - emby-token=${EMBY_TOKEN}
+      - intro-scan-id=${EMBY_INTRO_ID}
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${SERVICE}.tls=true'

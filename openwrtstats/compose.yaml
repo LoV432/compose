@@ -1,0 +1,26 @@
+services:
+  openwrtstats:
+    image: lov432/openwrt-stats:v2
+    container_name: openwrtstats
+    volumes:
+      - '${HOME}/dockers/dockers_data/openwrtstats/:/app/drizzle/db/'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
+      - 'traefik.http.routers.${SERVICE}.entrypoints=websecure'
+      - 'traefik.http.routers.${SERVICE}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.http.routers.${SERVICE}.tls.domains[1].main=monib.xyz'
+      - 'traefik.http.routers.${SERVICE}.middlewares=authelia@docker'
+    # ports:
+    #   - 3000:3000
+    environment:
+      - 'PBR_ENABLED=true'
+    restart: unless-stopped
+    networks:
+      traefik_proxy:    
+    
+    
+networks:
+  traefik_proxy:
+    external: true

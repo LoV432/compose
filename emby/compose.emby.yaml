@@ -1,7 +1,7 @@
 services:
   emby:
-    image: lov432/emby:latest
-    #image: lscr.io/linuxserver/emby:beta
+    #image: lov432/emby:latest
+    image: lscr.io/linuxserver/emby:beta
     hostname: emby
     container_name: emby
     environment:

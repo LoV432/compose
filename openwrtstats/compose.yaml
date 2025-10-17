@@ -16,6 +16,7 @@ services:
     #   - 3000:3000
     environment:
       - 'PBR_ENABLED=true'
+      - 'PRESENCE_ENABLED=true'
     restart: unless-stopped
     networks:
       traefik_proxy:    

@@ -8,14 +8,27 @@ services:
       - PUID=1000
       - PGID=100
     #  - GIDLIST=100
-    ports:
-      - 8096:8096
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE_EMBY}.rule=Host(`${HOST_EMBY}`)'
+      - 'traefik.http.routers.${SERVICE_EMBY}.entrypoints=websecure,websecure-public'
+      - 'traefik.http.routers.${SERVICE_EMBY}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE_EMBY}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.docker.network=traefik_proxy'
+    # ports:
+    #   - 8096:8096
     volumes:
       - ${HOME}/dockers/dockers_data/emby/:/config
       - ${HOME}/dockers/dockers_backup/emby/:/backups
-      - /mnt/media:/media
+      # - /mnt/media:/media
       - ./cert:/usr/local/share/ca-certificates/
     devices:
       - /dev/dri:/dev/dri
     entrypoint: ['bash', '-c', 'update-ca-certificates && /init']
+    networks:
+      - traefik_proxy
     restart: unless-stopped
+
+networks:
+  traefik_proxy:
+    external: true

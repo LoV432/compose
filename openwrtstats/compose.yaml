@@ -20,7 +20,9 @@ services:
     restart: unless-stopped
     networks:
       traefik_proxy:    
-    
+    extra_hosts:
+      - openwrt.monib.xyz:192.168.1.22
+      - dumbap1.monib.xyz:192.168.1.22
     
 networks:
   traefik_proxy:

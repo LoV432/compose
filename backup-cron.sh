@@ -50,16 +50,16 @@ if [[ $(date +%u) == "6" ]] || [[ $(date +%u) == "3" ]]; then
   echo "OpenWRT backup..."
   
   # Take backups
-  ssh -oStrictHostKeyChecking=no -oBatchMode=yes 192.168.1.1 'umask go=; sysupgrade -b /tmp/router-backup.tar.gz'
-  ssh -oStrictHostKeyChecking=no -oBatchMode=yes 192.168.1.101 'umask go=; sysupgrade -b /tmp/router-backup.tar.gz'
+  ssh -oStrictHostKeyChecking=no -oBatchMode=yes root@192.168.1.1 'umask go=; sysupgrade -b /tmp/router-backup.tar.gz'
+  ssh -oStrictHostKeyChecking=no -oBatchMode=yes root@192.168.1.101 'umask go=; sysupgrade -b /tmp/router-backup.tar.gz'
   
   # Copy backups to backup directory
-  scp -O -oStrictHostKeyChecking=no -oBatchMode=yes 192.168.1.1:/tmp/router-backup.tar.gz $BACKUP_DIR/openwrt/router-main-backup.tar.gz
-  scp -O -oStrictHostKeyChecking=no -oBatchMode=yes 192.168.1.101:/tmp/router-backup.tar.gz $BACKUP_DIR/openwrt/router-dumbap1-backup.tar.gz
+  scp -O -oStrictHostKeyChecking=no -oBatchMode=yes root@192.168.1.1:/tmp/router-backup.tar.gz $BACKUP_DIR/openwrt/router-main-backup.tar.gz
+  scp -O -oStrictHostKeyChecking=no -oBatchMode=yes root@192.168.1.101:/tmp/router-backup.tar.gz $BACKUP_DIR/openwrt/router-dumbap1-backup.tar.gz
   
   # Cleanup on routers
-  ssh -oStrictHostKeyChecking=no -oBatchMode=yes 192.168.1.1 'rm /tmp/router-backup.tar.gz'
-  ssh -oStrictHostKeyChecking=no -oBatchMode=yes 192.168.1.101 'rm /tmp/router-backup.tar.gz'
+  ssh -oStrictHostKeyChecking=no -oBatchMode=yes root@192.168.1.1 'rm /tmp/router-backup.tar.gz'
+  ssh -oStrictHostKeyChecking=no -oBatchMode=yes root@192.168.1.101 'rm /tmp/router-backup.tar.gz'
 
   echo ""
 fi

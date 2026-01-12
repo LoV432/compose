@@ -116,7 +116,7 @@ services:
   #   restart: unless-stopped
 
   qbit:
-    image: '11notes/qbittorrent:5.1.2'
+    image: '11notes/qbittorrent:5.1.4'
     container_name: qbit
     read_only: true
     networks:
@@ -127,6 +127,7 @@ services:
       - /mnt/media:/media
       - ${HOME}/dockers/dockers_data/arr/qbittorrent/config:/qbittorrent/etc
       - ${HOME}/dockers/dockers_data/arr/qbittorrent/db:/qbittorrent/var
+      - ${HOME}/dockers/dockers_data/arr/qbittorrent/themes:/qbittorrent/themes
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${QBIT_SERVICE}.rule=Host(`${QBIT_HOST}`)'

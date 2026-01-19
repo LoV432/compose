@@ -16,7 +16,6 @@ services:
       - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=${HOST}'
       - 'traefik.http.services.${SERVICE}.loadbalancer.server.scheme=https'
       - 'traefik.docker.network=traefik_proxy'
-      - 'com.centurylinklabs.watchtower.enable=false'
     restart: unless-stopped
 networks:
   traefik_proxy:

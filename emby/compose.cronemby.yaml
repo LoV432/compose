@@ -11,7 +11,7 @@ services:
     labels:
       - 'traefik.enable=true'
       - 'traefik.http.routers.${SERVICE}.tls=true'
-      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`) || Host(`${HOST2}`)'
+      - 'traefik.http.routers.${SERVICE}.rule=Host(`${HOST}`)'
       - 'traefik.http.routers.${SERVICE}.entrypoints=websecure'
       - 'traefik.http.routers.${SERVICE}.tls.domains[0].main=${HOST}'
       - 'traefik.http.services.${SERVICE}.loadbalancer.server.scheme=https'

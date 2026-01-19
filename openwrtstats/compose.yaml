@@ -17,6 +17,7 @@ services:
     environment:
       - 'PBR_ENABLED=true'
       - 'PRESENCE_ENABLED=true'
+      - 'NODE_TLS_REJECT_UNAUTHORIZED=0'
     restart: unless-stopped
     networks:
       traefik_proxy:    

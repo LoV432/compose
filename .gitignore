@@ -3,3 +3,4 @@
 *.sql
 *.env*
 /traefik/authelia
+traefik/config/dynamic_traefik.yaml

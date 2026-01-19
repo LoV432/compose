@@ -49,18 +49,18 @@ services:
       - 'traefik.docker.network=traefik_proxy'
     restart: unless-stopped
 
-  # flaresolverr:
-  #   image: ghcr.io/flaresolverr/flaresolverr:latest
-  #   container_name: flaresolverr
-  #   environment:
-  #     - LOG_LEVEL=info
-  #     - LOG_HTML=false
-  #     - CAPTCHA_SOLVER=none
-  #     - TZ=Europe/London
-  #   networks:
-  #     arr-apps:
-  #       ipv4_address: 172.1.0.6
-  #   restart: unless-stopped
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    container_name: flaresolverr
+    environment:
+      - LOG_LEVEL=info
+      - LOG_HTML=false
+      - CAPTCHA_SOLVER=none
+      - TZ=Europe/London
+    networks:
+      arr-apps:
+        ipv4_address: 172.1.0.6
+    restart: unless-stopped
 
   prowlarr:
     image: lscr.io/linuxserver/prowlarr:latest

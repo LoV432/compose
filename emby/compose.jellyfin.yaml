@@ -6,11 +6,24 @@ services:
     environment:
       - PUID=1000
       - PGID=100
-    ports:
-      - 8097:8096
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.${SERVICE_JELLYFIN}.rule=Host(`${HOST_JELLYFIN}`)'
+      - 'traefik.http.routers.${SERVICE_JELLYFIN}.entrypoints=websecure,websecure-public'
+      - 'traefik.http.routers.${SERVICE_JELLYFIN}.tls.certresolver=production'
+      - 'traefik.http.routers.${SERVICE_JELLYFIN}.tls.domains[0].main=*.monib.xyz'
+      - 'traefik.docker.network=traefik_proxy'
+    # ports:
+    #   - 8097:8096
     volumes:
       - ${HOME}/dockers/dockers_data/jellyfin/:/config
       - /mnt/media:/media
     devices:
       - /dev/dri:/dev/dri
+    networks:
+      - traefik_proxy
     restart: unless-stopped
+
+networks:
+  traefik_proxy:
+    external: true

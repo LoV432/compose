@@ -116,7 +116,7 @@ services:
   #   restart: unless-stopped
 
   qbit:
-    image: '11notes/qbittorrent:5.1.4'
+    image: '11notes/qbittorrent:5.2'
     container_name: qbit
     read_only: true
     networks:
@@ -144,7 +144,7 @@ services:
     restart: unless-stopped
 
   jellyseerr:
-    image: fallenbagel/jellyseerr:latest
+    image: ghcr.io/seerr-team/seerr:latest
     container_name: jellyseerr
     labels:
       - 'traefik.enable=true'
